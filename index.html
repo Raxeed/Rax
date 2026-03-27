@@ -1,0 +1,46 @@
+<div class="container">
+
+  <img class="avatar" src="https://i.imgur.com/AF2XA77.jpg">
+  <h1 class="glitch" data-text="Raxed">Raxed</h1>
+  <p>Moje linki 🔥</p>
+
+  <div id="linksContainer"></div>
+
+  <button onclick="openAdmin()" style="margin-top:20px;padding:10px;border-radius:8px;background:#a855f7;border:none;color:black;cursor:pointer;">Panel Admina</button>
+
+</div>
+
+<script>
+let links = JSON.parse(localStorage.getItem('raxedLinks')) || [
+  {name:'💬 Discord', url:'https://discord.gg/NmGXyUN3'},
+  {name:'🎮 Steam', url:'https://steamcommunity.com/id/gimmethatmoney'}
+];
+
+function renderLinks() {
+  const container = document.getElementById('linksContainer');
+  container.innerHTML = '';
+  links.forEach(l => {
+    const a = document.createElement('a');
+    a.className = 'link';
+    a.href = l.url;
+    a.target = '_blank';
+    a.textContent = l.name;
+    container.appendChild(a);
+  });
+}
+
+renderLinks();
+
+function openAdmin() {
+  const password = prompt("Hasło admina:");
+  if(password !== "raxed123") return alert("Błędne hasło!");
+
+  const name = prompt("Nazwa linku (z emoji):");
+  const url = prompt("Adres URL:");
+  if(name && url) {
+    links.push({name,url});
+    localStorage.setItem('raxedLinks', JSON.stringify(links));
+    renderLinks();
+  }
+}
+</script>
